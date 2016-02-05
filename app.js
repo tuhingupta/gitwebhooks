@@ -8,13 +8,13 @@ var express = require('express'),
   methodOverride = require('method-override'),
   errorhandler = require('errorhandler'),
   morgan = require('morgan'),
-  routes = require('./server/routes'),
+  routes = require('./routes'),
   http = require('http'),
   path = require('path');
 
 var app = module.exports = express();
 
-var api = require('./server/routes/api')();
+var api = require('./routes/api')();
 
 
 /**
@@ -22,18 +22,14 @@ var api = require('./server/routes/api')();
  */
 
 // all environments
-app.set('port', process.env.PORT || 8080);
-app.set('views', __dirname + '/client');
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(bodyParser.json())
 app.use(methodOverride());
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-app.use('/client/js',  express.static(__dirname + '/client/js'));
-app.use('/client/css',  express.static(__dirname + '/client/css'));
-app.use('/client',  express.static(__dirname + '/client'));
-app.use('/views',  express.static(__dirname + '/client/views'));
+app.use(express.static(path.join(__dirname, 'public')));
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,9 +62,7 @@ if (env === 'production') {
 app.use('/api',api);
 
 // redirect all others to the index (HTML5 history)
-app.use("*",function(req,res){
-    res.sendfile(path.join(__dirname,"/client/index.html"));
-});
+//app.get('*', routes.index);
 
 
 /**
