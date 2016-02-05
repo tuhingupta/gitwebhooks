@@ -8,6 +8,7 @@ module.exports = function () {
 
 	router.route('/name').get(services.getInfoJSON);
 	router.route('/name').post(services.addName);
+	router.route('/webhooks').post(services.webhooks);
 	
 	
 return router;

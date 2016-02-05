@@ -19,5 +19,10 @@ module.exports = {
 
 		console.log(req.body.name);
 		res.send(201);
+	},
+
+	webhooks: function(req,res){
+		console.log(req.body);
+		res.send(204);
 	}
 };
