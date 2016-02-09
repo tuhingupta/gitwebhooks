@@ -14,10 +14,8 @@ module.exports = {
 	getInfoJSON: function (req, res) {
 		
 		console.log(mailService);
-		mailService.sendMail(req,res);
-		
-		//var acceptedUsers = req.app.get('acceptedUsers');
-		//res.json(acceptedUsers);
+		var acceptedUsers = req.app.get('acceptedUsers');
+		res.json(acceptedUsers);
 		res.send(200);
 	},
 
@@ -35,6 +33,13 @@ module.exports = {
 
 	webhooks: function(req,res){
 		console.log(req.body);
+		console.log('---------------------');
+		console.log(req.body.repository.name);
+		console.log(req.body.repository.pusher.name);
+		console.log(req.body.repository.url);
+		console.log('----------------------');
+
+		mailService.sendMail(req,res);
 		res.send(204);
 	}
 

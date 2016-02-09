@@ -41,15 +41,8 @@ var env = process.env.NODE_ENV || 'development';
 
 
 //set you confidential keys in env variables, and access them here.
-var clientId=process.env.MAIL_CLIENTID;
-var secret=process.env.MAIL_SECRET;
-var user=process.env.MAIL_USER;
-var token=process.env.MAIL_TOKEN;
-
-app.set('CLIENTID',clientId);
-app.set('SECRET',secret);
-app.set('USER',user);
-app.set('TOKEN',token);
+//var clientId=process.env.MAIL_CLIENTID;
+//app.set('CLIENTID',clientId);
 
 
 // development only

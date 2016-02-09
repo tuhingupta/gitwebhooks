@@ -11,7 +11,7 @@ module.exports = {
 	sendMail: function(req, res){
 
 
-    	console.log('SEND mail');
+    	console.log('SEND mail service');
 		var generator = require('xoauth2').createXOAuth2Generator({
 		    user: config.user,
 		    clientId: config.clientId,
@@ -21,9 +21,8 @@ module.exports = {
 		});
 
 		// listen for token updates
-		// you probably want to store these to a db
 		generator.on('token', function(token){
-		    console.log('New token for %s: %s', token.user, token.accessToken);
+		   // console.log('New token for %s: %s', token.user, token.accessToken);
 		});
 
 		// login
@@ -37,9 +36,9 @@ module.exports = {
 		// send mail
 		transporter.sendMail({
 			from: config.from,	
-		    to: 'tuhin.gupta@gmail.com',
-		    subject: 'hello world!',
-		    text: 'Authenticated with OAuth2'
+		    to: 'tuhin.gupta@aexp.com',
+		    subject: 'Accept Innov8s Licence to contribute',
+		    text: config.mailtext
 		}, function(error, response) {
 		   if (error) {
 		        console.log(error);
