@@ -13,22 +13,22 @@ module.exports = {
 	 */
 	getInfoJSON: function (req, res) {
 		
-		mailService.sendMail;
-		console.log('----<>'+res.body);
-
-		//var config = req.app.get('config');
-		//res.json(config);
+		console.log(mailService);
+		mailService.sendMail(req,res);
+		
+		//var acceptedUsers = req.app.get('acceptedUsers');
+		//res.json(acceptedUsers);
 		res.send(200);
 	},
 
 	addLicence: function(req, res){
 
-		var config = req.app.get('config');
+		var acceptedUsers = req.app.get('acceptedUsers');
 		
-		config.push(req.body);
-		req.app.set('config',config);
+		acceptedUsers.push(req.body);
+		req.app.set('acceptedUsers',acceptedUsers);
 
-		console.log(config);
+		console.log(acceptedUsers);
 
 		res.send(201);
 	},

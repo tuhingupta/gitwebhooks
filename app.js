@@ -39,13 +39,17 @@ app.use(bodyParser.json());
 
 var env = process.env.NODE_ENV || 'development';
 
-//var clientId='471078254015-nvqormdl1nla4emgj1nv2ob5t5pu2qj6.apps.googleusercontent.com';
-//var secret='ZRru_G0L7K3jdLCW6Z2SLtuD';
 
 //set you confidential keys in env variables, and access them here.
-var clientId=process.env.GMAIL_CLIENTID;
-var secret=process.env.GMAIL_SECRET;
-app.set('GMAIL_CLIENTID',clientId);
+var clientId=process.env.MAIL_CLIENTID;
+var secret=process.env.MAIL_SECRET;
+var user=process.env.MAIL_USER;
+var token=process.env.MAIL_TOKEN;
+
+app.set('CLIENTID',clientId);
+app.set('SECRET',secret);
+app.set('USER',user);
+app.set('TOKEN',token);
 
 
 // development only
@@ -60,8 +64,8 @@ if (env === 'production') {
   // TODO
 }
 
-var config = [];
-app.set('config', config); 
+var acceptedUsers = [];
+app.set('acceptedUsers', acceptedUsers); 
   
 /**
  * Routes
