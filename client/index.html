@@ -15,6 +15,7 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="client/css/app.css" rel="stylesheet">
+    <base href="/"></base>
 <!-- endbuild -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,8 +28,7 @@
 
 <body>
    
-    
-    <div ui-view="content"></div>  
+    <div data-ng-include="'/views/content.html'"></div>  
 
     
 

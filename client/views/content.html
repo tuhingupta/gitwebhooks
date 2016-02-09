@@ -20,26 +20,26 @@ Rights in the Works may include, without limitation, copyright, patent, trademar
 
 		<div class="col-xs-12 col-sm-9" >
 
-            <form class="form-horizontal" name="licenceForm" ng-submit="submitComment()" novalidate>
-              <div class="form-group" ng-class="{ 'has-error' : commentsForm.author.$error.required && !commentsForm.author.$pristine }">
+            <form class="form-horizontal" name="licenceForm" ng-submit="submitLicence($event)" novalidate>
+              <div class="form-group" ng-class="{ 'has-error' : licenceForm.name.$error.required && !licenceForm.name.$pristine }">
                     <label for="name" class="col-sm-2 control-label">Your Name</label>
                     <div class="col-sm-4">
 	                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name"
-	                    ng-model="inputComment.author" required>
-	                    <span ng-show="commentsForm.author.$error.required && !commentsForm.author.$pristine" class="help-block">Your name is required.</span>
+	                    ng-model="licence.name" required>
+	                    <span ng-show="licenceForm.name.$error.required && !licenceForm.name.$pristine" class="help-block">Your name is required.</span>
                     </div>
-                    <label for="name" class="col-sm-2 control-label">Git Login Id</label>
+                    <label for="loginid" class="col-sm-2 control-label">Git Login Id</label>
                     <div class="col-sm-4">
 	                    <input type="text" class="form-control" id="loginid" name="loginid" placeholder="Enter Your Git Login Id"
-	                    ng-model="inputComment.author" required>
-	                    <span ng-show="commentsForm.author.$error.required && !commentsForm.author.$pristine" class="help-block">Your name is required.</span>
+	                    ng-model="licence.loginid" required>
+	                    <span ng-show="licenceForm.loginid.$error.required && !licenceForm.loginid.$pristine" class="help-block">Your name is required.</span>
                     </div>
                     <br><br><br><br>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-10">
-                             <button type="submit" class="btn btn-primary" ng-disabled="commentsForm.$invalid">Accept</button>
-                             <div class="divider"/>
-                             <button type="submit" class="btn btn-warning" ng-disabled="commentsForm.$invalid">Decline</button>
+                             <button ng-click="setSelection('accept')" type="submit" class="btn btn-primary" ng-disabled="licenceForm.$invalid">Accept</button>
+                             <button ng-click="setSelection('decline')" type="submit" class="btn btn-warning" ng-disabled="licenceForm.$invalid">Decline</button>
+                             <p ng-show="showConfirmation" class="text-danger"><b>{{responseData}}</b></p>
                         </div>
                		</div>
               </div>

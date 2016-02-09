@@ -26,5 +26,8 @@
     "gulp-usemin": "^0.3.20",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemailer": "^2.1.0"
   }
 }

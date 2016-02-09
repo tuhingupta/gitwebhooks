@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies
  */
@@ -23,7 +22,6 @@ var api = require('./server/routes/api')();
 
 // all environments
 app.set('port', process.env.PORT || 8080);
-app.set('views', __dirname + '/client');
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(bodyParser.json())
@@ -41,17 +39,30 @@ app.use(bodyParser.json());
 
 var env = process.env.NODE_ENV || 'development';
 
+//var clientId='471078254015-nvqormdl1nla4emgj1nv2ob5t5pu2qj6.apps.googleusercontent.com';
+//var secret='ZRru_G0L7K3jdLCW6Z2SLtuD';
+
+//set you confidential keys in env variables, and access them here.
+var clientId=process.env.GMAIL_CLIENTID;
+var secret=process.env.GMAIL_SECRET;
+app.set('GMAIL_CLIENTID',clientId);
+
+
 // development only
 if (env === 'development') {
   app.use(errorhandler());
 }
+
+
 
 // production only
 if (env === 'production') {
   // TODO
 }
 
-
+var config = [];
+app.set('config', config); 
+  
 /**
  * Routes
  */
@@ -64,9 +75,10 @@ if (env === 'production') {
 //app.get('/api/name', api.name);
 
 app.use('/api',api);
+app.get('/api/licence',api);
 
 // redirect all others to the index (HTML5 history)
-app.use("*",function(req,res){
+app.use("/",function(req,res){
     res.sendfile(path.join(__dirname,"/client/index.html"));
 });
 
