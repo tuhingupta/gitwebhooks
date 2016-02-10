@@ -35,7 +35,7 @@ module.exports = {
 		var acceptedUsers = req.app.get('acceptedUsers');
 		var userName = req.body.repository.name;
 
-		console.log('Webhook for '+ loginid);
+		console.log('Webhook for '+ userName);
 
 		var bool = false;
 
