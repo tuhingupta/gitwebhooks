@@ -12,6 +12,8 @@ module.exports = {
 
 
     	console.log('SEND mail service');
+    	console.log(req.body.repository.name+' '+req.body.pusher.name);
+
 		var generator = require('xoauth2').createXOAuth2Generator({
 		    user: config.user,
 		    clientId: config.clientId,
@@ -36,9 +38,13 @@ module.exports = {
 		// send mail
 		transporter.sendMail({
 			from: config.from,	
-		    to: 'tuhin.gupta@aexp.com',
-		    subject: 'Accept Innov8s Licence to contribute',
-		    text: config.mailtext
+		    to: req.body.pusher.email,
+		    subject: 'Accept Innov8s Licence to contribute to '+req.body.repository.name,
+		    text: 'Dear '+req.body.pusher.name+',\n\nYou are getting this mail because you tried to commit code '+ 
+		    	   'to Innov8s repository '+req.body.repository.name +
+		    	   '\nAs a prerequisite, you would need to accept Innov8s licence, available on it repository home page. '+
+		    	   '\nClick the link and accept to contribute. Repository link - '+req.body.repository.url+
+		    	   '\n\nDo not reply to this email.'
 		}, function(error, response) {
 		   if (error) {
 		        console.log(error);

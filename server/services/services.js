@@ -13,7 +13,6 @@ module.exports = {
 	 */
 	getInfoJSON: function (req, res) {
 		
-		console.log(mailService);
 		var acceptedUsers = req.app.get('acceptedUsers');
 		res.json(acceptedUsers);
 		res.send(200);
@@ -26,20 +25,31 @@ module.exports = {
 		acceptedUsers.push(req.body);
 		req.app.set('acceptedUsers',acceptedUsers);
 
-		console.log(acceptedUsers);
+		//console.log(acceptedUsers);
 
 		res.send(201);
 	},
 
 	webhooks: function(req,res){
-		console.log(req.body);
-		console.log('---------------------');
-		console.log(req.body.repository.name);
-		console.log(req.body.repository.pusher.name);
-		console.log(req.body.repository.url);
-		console.log('----------------------');
+		
+		var acceptedUsers = req.app.get('acceptedUsers');
+		var userName = req.body.repository.name;
 
-		mailService.sendMail(req,res);
+		var bool = false;
+
+		for (var i = 0; i < acceptedUsers.length; i++) {
+			var user = acceptedUsers[i];
+
+			if(user.loginid.trim()===userName){
+				bool = true;
+				break;
+			}
+		};
+
+		if(bool){
+			mailService.sendMail(req,res);
+		}
+
 		res.send(204);
 	}
 
