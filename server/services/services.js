@@ -35,7 +35,7 @@ module.exports = {
 		var acceptedUsers = req.app.get('acceptedUsers');
 		var userName = req.body.repository.name;
 
-		console.log('Webhook for '+ userName);
+		console.log('Webhook for '+ loginid);
 
 		var bool = false;
 
@@ -43,12 +43,13 @@ module.exports = {
 			var user = acceptedUsers[i];
 
 			console.log('Accepted Users '+user.loginid);
+			console.log(user.loginid.trim()===userName);
 
-			if(user.loginid.trim()===userName){
+			if(user.loginid.trim()==userName){
 				bool = true;
 				break;
 			}
-		};
+		}
 
 		if(!bool){
 			mailService.sendMail(req,res);
