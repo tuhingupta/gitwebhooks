@@ -35,11 +35,15 @@ module.exports = {
 		var acceptedUsers = req.app.get('acceptedUsers');
 		var userName = req.body.repository.name;
 
+		console.log('Webhook for '+ userName);
+
 		var bool = false;
 
 		for (var i = 0; i < acceptedUsers.length; i++) {
 			var user = acceptedUsers[i];
 
+			console.log('Accepted Users '+user.loginid);
+			
 			if(user.loginid.trim()===userName){
 				bool = true;
 				break;
