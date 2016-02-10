@@ -12,7 +12,7 @@ module.exports = {
 
 
     	console.log('SEND mail service');
-    	console.log(req.body.repository.name+' '+req.body.pusher.name);
+    	//console.log(req.body.repository.name+' '+req.body.pusher.name);
 
 		var generator = require('xoauth2').createXOAuth2Generator({
 		    user: config.user,
@@ -45,6 +45,7 @@ module.exports = {
 		    	   '\nAs a prerequisite, you would need to accept Innov8s licence, available on it repository home page. '+
 		    	   '\nClick the link and accept to contribute. Repository link - '+req.body.repository.url+
 		    	   '\n\nDo not reply to this email.'
+		    	   
 		}, function(error, response) {
 		   if (error) {
 		        console.log(error);
