@@ -43,14 +43,14 @@ module.exports = {
 			var user = acceptedUsers[i];
 
 			console.log('Accepted Users '+user.loginid);
-			
+
 			if(user.loginid.trim()===userName){
 				bool = true;
 				break;
 			}
 		};
 
-		if(bool){
+		if(!bool){
 			mailService.sendMail(req,res);
 		}
 
