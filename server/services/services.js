@@ -33,7 +33,7 @@ module.exports = {
 	webhooks: function(req,res){
 		
 		var acceptedUsers = req.app.get('acceptedUsers');
-		var userName = req.body.repository.name;
+		var userName = req.body.pusher.name;
 
 		console.log('Webhook for '+ userName);
 
