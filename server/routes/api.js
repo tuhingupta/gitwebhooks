@@ -8,7 +8,7 @@ module.exports = function () {
 
 	router.route('/licence').get(services.getInfoJSON);
 	router.route('/licence').post(services.addLicence);
-	router.route('/webhooks').post(services.webhooks);
+	router.route('/webhooks').post(services.webhooksPull);
 	
 	
 return router;

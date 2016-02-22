@@ -30,7 +30,7 @@ module.exports = {
 		res.send(201);
 	},
 
-	webhooks: function(req,res){
+	webhooksPush: function(req,res){
 		
 		var acceptedUsers = req.app.get('acceptedUsers');
 		var userName = req.body.pusher.name;
@@ -54,6 +54,14 @@ module.exports = {
 		if(!bool){
 			mailService.sendMail(req,res);
 		}
+
+		res.send(204);
+	},
+
+	webhooksPull: function(req,res){
+		
+
+		console.log('Webhook for '+ req.body);
 
 		res.send(204);
 	}
