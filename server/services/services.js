@@ -82,9 +82,9 @@ module.exports = {
 				var user = acceptedUsers[i];
 
 				console.log('Accepted Users '+user.loginid);
-				console.log(user.loginid.trim()===userName);
+				console.log(user.loginid.trim()===user);
 
-				if(user.loginid.trim()==userName){
+				if(user.loginid.trim()==user){
 					bool = true;
 					break;
 					}
