@@ -5,6 +5,9 @@
  */
 
 var mailService = require('./mailService');
+var request = require('request');
+var config = require('../config');
+
 
 module.exports = {
 	
@@ -60,8 +63,33 @@ module.exports = {
 
 	webhooksPull: function(req,res){
 		
+		var body = req.body;
+		var postURL = req.body.pull_request.url;
+		var user = req.body.pull_request.user.login;
+		console.log('Webhook for '+ postURL + ' - '+user);
+		var message = 'User '+user+' has not accepted our Licence yet.'
 
-		console.log('Webhook for '+ JSON.stringify(req.body));
+		request({
+			    url: postURL, //URL to hit
+			    //qs: {from: 'blog example', time: +new Date()}, 
+			    method: 'PATCH',
+			    headers: { 
+			        'Content-Type': 'application/json',
+			        'Authorization': config.authToken,
+			        'User-Agent': 'https://api.github.com/meta'
+			    },
+			    json: {"title":message, 
+			    		"body":message, 
+			    		"state":"open"
+			    	}
+			}, function(error, response, body){
+			    if(error) {
+			        console.log(error);
+			    } else {
+			        console.log(response.statusCode, body);
+			}
+			});
+
 
 		res.send(204);
 	}

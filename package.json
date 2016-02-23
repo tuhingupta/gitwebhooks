@@ -29,6 +29,7 @@
     "xoauth2": "^1.1.0"
   },
   "devDependencies": {
-    "nodemailer": "^2.1.0"
+    "nodemailer": "^2.1.0",
+    "request": "^2.69.0"
   }
 }
