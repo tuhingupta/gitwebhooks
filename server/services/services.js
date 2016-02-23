@@ -72,7 +72,7 @@ module.exports = {
 		var acceptedUsers = req.app.get('acceptedUsers');
 		var bool = false;
 
-		acceptedUsers.push({"name":"dev tuhin","loginid":"tuhingupta","selection":"accept","date":"2016-02-23T18:10:18.755Z"});
+		//acceptedUsers.push({"name":"dev tuhin","loginid":"tuhingupta","selection":"accept","date":"2016-02-23T18:10:18.755Z"});
 
 		if(status == 'opened' || status =='reopened'){
 
