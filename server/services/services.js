@@ -46,7 +46,7 @@ module.exports = {
 			var user = acceptedUsers[i];
 
 			console.log('Accepted Users '+user.loginid);
-			console.log(user.loginid.trim()===userName);
+			console.log(user.loginid.trim()==userName);
 
 			if(user.loginid.trim()==userName){
 				bool = true;
@@ -65,12 +65,14 @@ module.exports = {
 		
 		var body = req.body;
 		var postURL = req.body.pull_request.url;
-		var user = req.body.pull_request.user.login;
-		console.log('Webhook for '+ postURL + ' - '+user);
-		var message = 'Pull Request Closed: User '+user+' has not accepted our Licence yet. First accept Innov8s Licence agreement';
+		var loginid = req.body.pull_request.user.login;
+		console.log('Webhook for '+ postURL + ' - '+loginid);
+		var message = 'Pull Request Closed: User '+loginid+' has not accepted our Licence yet. First accept Innov8s Licence agreement';
 		var status = req.body.action;
 		var acceptedUsers = req.app.get('acceptedUsers');
 		var bool = false;
+
+		acceptedUsers.push({"name":"dev tuhin","loginid":"tuhingupta","selection":"accept","date":"2016-02-23T18:10:18.755Z"});
 
 		if(status == 'opened' || status =='reopened'){
 
@@ -82,14 +84,15 @@ module.exports = {
 				var user = acceptedUsers[i];
 
 				console.log('Accepted Users '+user.loginid);
-				console.log(user.loginid.trim()===user);
+				console.log(user.loginid.trim()==loginid);
 
-				if(user.loginid.trim()==user){
+				if(user.loginid.trim()==loginid){
 					bool = true;
 					break;
-					}
-			}
+				}
+			}//for
 
+			console.log('value of bool '+bool);
 			
 			if(!bool){
 				request({
