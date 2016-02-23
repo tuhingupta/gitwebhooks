@@ -67,36 +67,59 @@ module.exports = {
 		var postURL = req.body.pull_request.url;
 		var user = req.body.pull_request.user.login;
 		console.log('Webhook for '+ postURL + ' - '+user);
-		var message = 'User '+user+' has not accepted our Licence yet.';
+		var message = 'Pull Request Closed: User '+user+' has not accepted our Licence yet. First accept Innov8s Licence agreement';
 		var status = req.body.action;
+		var acceptedUsers = req.app.get('acceptedUsers');
+		var bool = false;
 
-		if(status == 'opened'){
+		if(status == 'opened' || status =='reopened'){
 
-		request({
-			    url: postURL, //URL to hit
-			    //qs: {from: 'blog example', time: +new Date()}, 
-			    method: 'PATCH',
-			    headers: { 
-			        'Content-Type': 'application/json',
-			        'Authorization': config.authToken,
-			        'User-Agent': 'https://api.github.com/meta'
-			    },
-			    json: { "title":message, 
-			    		"body":message, 
-			    		"state":"closed"
-			    	}
-			}, function(error, response, body){
-			    if(error) {
-			        console.log(error);
-			    } else {
-			        console.log(response.statusCode, body);
+		
+
+			//check if users accepted licence
+			for (var i = 0; i < acceptedUsers.length; i++) 
+			{
+				var user = acceptedUsers[i];
+
+				console.log('Accepted Users '+user.loginid);
+				console.log(user.loginid.trim()===userName);
+
+				if(user.loginid.trim()==userName){
+					bool = true;
+					break;
+					}
 			}
-			});
 
-		//mailService.sendMail(req,res);
-	}else{
-		console.log('webhook not for open');
-	}
+			
+			if(!bool){
+				request({
+					    url: postURL, //URL to hit
+					    //qs: {from: 'blog example', time: +new Date()}, 
+					    method: 'PATCH',
+					    headers: { 
+					        'Content-Type': 'application/json',
+					        'Authorization': config.authToken,
+					        'User-Agent': 'https://api.github.com/meta'
+					    },
+					    json: {  //"title":message, 
+					    		"body":message, 
+					    		"state":"closed"
+					    	}
+					}, function(error, response, body){
+					    if(error) {
+					        console.log(error);
+					    } else {
+					        console.log(response.statusCode, body);
+					}
+					});
+
+				//mailService.sendMail(req,res);
+			}else{
+				console.log('user has accepted licence');
+			}
+		}else{
+			console.log('webhook not for open');
+		}
 
 		res.send(204);
 		
