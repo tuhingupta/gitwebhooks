@@ -61,7 +61,7 @@ module.exports = {
 	webhooksPull: function(req,res){
 		
 
-		console.log('Webhook for '+ req.body);
+		console.log('Webhook for '+ JSON.stringify(req.body));
 
 		res.send(204);
 	}
