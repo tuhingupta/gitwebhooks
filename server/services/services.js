@@ -67,7 +67,10 @@ module.exports = {
 		var postURL = req.body.pull_request.url;
 		var user = req.body.pull_request.user.login;
 		console.log('Webhook for '+ postURL + ' - '+user);
-		var message = 'User '+user+' has not accepted our Licence yet.'
+		var message = 'User '+user+' has not accepted our Licence yet.';
+		var status = req.body.action;
+
+		if(status == 'opened'){
 
 		request({
 			    url: postURL, //URL to hit
@@ -78,9 +81,9 @@ module.exports = {
 			        'Authorization': config.authToken,
 			        'User-Agent': 'https://api.github.com/meta'
 			    },
-			    json: {"title":message, 
+			    json: { "title":message, 
 			    		"body":message, 
-			    		"state":"open"
+			    		"state":"closed"
 			    	}
 			}, function(error, response, body){
 			    if(error) {
@@ -90,8 +93,13 @@ module.exports = {
 			}
 			});
 
+		//mailService.sendMail(req,res);
+	}else{
+		console.log('webhook not for open');
+	}
 
 		res.send(204);
+		
 	}
 
 };
